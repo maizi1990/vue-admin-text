@@ -6,9 +6,6 @@ module.exports = {
 	outputDir: process.env.NODE_ENV === "production" ? "dist" : "devdist",
 	// eslint-loader 是否在保存的时候检查
 	lintOnSave: false,
-	/**
-	 * webpack配置,see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-	 **/
 	chainWebpack: config => {},
 	configureWebpack: config => {
 		config.resolve = {
@@ -36,12 +33,8 @@ module.exports = {
 		// 启用 CSS modules for all css / pre-processor files.
 		// modules: false
 	},
-	// use thread-loader for babel & TS in production build
-	// enabled by default if the machine has more than 1 cores
+
 	parallel: require("os").cpus().length > 1,
-	/**
-	 *  PWA 插件相关配置,see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
-	 */
 	pwa: {},
 	// webpack-dev-server 相关配置
 	devServer: {
@@ -51,7 +44,16 @@ module.exports = {
 		https: false, // 编译失败时刷新页面
 		hot: true, // 开启热加载
 		hotOnly: false,
-		proxy: null, // 设置代理
+		proxy: {
+			"/api": {
+				target: "http://www.web-jshtml.cn/productapi", // 你请求的第三方接口
+				changeOrigin: true, // 允许跨域
+				pathRewrite: {
+					// 路径重写，
+					"^/api": ""
+				}
+			}
+		},
 		overlay: {
 			// 全屏模式下是否显示脚本错误
 			warnings: true,
