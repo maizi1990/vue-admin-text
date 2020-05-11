@@ -41,8 +41,7 @@
           </el-button>
         </el-form-item>
       </el-form>
-      <div v-html="txt"></div>
-      <div v-text="txt"></div>
+     
     </div>   
   </div>
 </template>
@@ -54,7 +53,7 @@ import { reactive,ref, onMounted, set } from '@vue/composition-api';
 
 export default {
   setup(props,{root,refs}){
-    const txt=ref("<ul style='color:#fff;'><li>dudududuud</li><li>dudududuud</li></ul>")
+   
 
     /* 表单input的验证---验证规则提示 */
     //验证用户名
@@ -120,9 +119,9 @@ export default {
     //获取验证码 状态
     const getCodeBtn = reactive({txt:'获取验证码',state:false})
     const ruleForm = reactive({
-      username: '',
-      password: '',
-      password2: '',
+      username: '666666@qq.com',
+      password: 'maizi1990',
+      password2: 'maizi1990',
       code:''
     })
     const rules = reactive({
@@ -284,10 +283,16 @@ export default {
         password:sha1(ruleForm.password),
         code:ruleForm.code
       }
-      //登录接口
-      Login(requestData)
+      
+      root.$store.dispatch("app/login",requestData).then(response => {
+        root.$router.push("/console")
+      })
+
+
       //2、关闭倒计时
-      clearCountDown()
+      clearCountDown();
+      
+
     }
     /**
      * 生命周期
@@ -309,7 +314,7 @@ export default {
       toggleMenu,
       getSms,
       submitForm,
-      txt
+      
       
     }
       

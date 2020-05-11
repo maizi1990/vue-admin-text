@@ -1,0 +1,30 @@
+//一级菜单
+.el-submenu{
+  &.is-active.is-opened .el-submenu__title{
+    background-color: $mainColor !important;
+  }
+  
+}
+//二级菜单
+.el-submenu .el-menu-item{
+  font-size: 14px;
+  &.is-active{
+    background-color:rgba($color: $mainColor, $alpha: 0.2) !important;
+  }
+}
+.el-menu{
+  border-right:none;
+}
+//修改icon颜色
+.el-submenu [class^=el-icon-]{
+  color: #fff !important;
+}
+//表格 
+.el-table{
+  margin-bottom: 20px !important;
+}
+.el-table td, .el-table th{
+  text-align: center !important;
+}
+//对话框 el-dialog
+.el-dialog{width: 35% !important;}

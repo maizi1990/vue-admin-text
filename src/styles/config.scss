@@ -1,0 +1,12 @@
+//左侧菜单宽度
+$navWidth:250px;
+$navWidthMin:64px;
+//主色调
+$mainColor:#F56C6C;
+
+@mixin webkit ($type,$value){
+  -webkit-#{$type}:$value;
+  -moz-#{$type}:$value;
+  -ms-#{$type}:$value;
+  -o-#{$type}:$value;
+}

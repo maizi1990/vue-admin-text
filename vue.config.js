@@ -6,12 +6,24 @@ module.exports = {
 	outputDir: process.env.NODE_ENV === "production" ? "dist" : "devdist",
 	// eslint-loader 是否在保存的时候检查
 	lintOnSave: false,
-	chainWebpack: config => {},
+	chainWebpack: config => {
+		const svgRule = config.module.rule("svg")
+		svgRule.uses.clear()
+		svgRule
+			.use("svg-sprite-loader")
+			.loader("svg-sprite-loader")
+			.options({
+				symbolId: "icon-[name]",
+				include: ["./src/icons"]
+			})
+	},
 	configureWebpack: config => {
 		config.resolve = {
 			// 配置解析别名
 			extensions: [".js", ".json", ".vue"],
 			alias: {
+				//改变vue的默认指向
+				vue: "vue/dist/vue.js",
 				"@": path.resolve(__dirname, "./src")
 			}
 		}
@@ -27,6 +39,7 @@ module.exports = {
 		// css预设器配置项
 		loaderOptions: {
 			scss: {
+				//样式表主入口
 				prependData: `@import "./src/styles/main.scss";`
 			}
 		}
@@ -46,7 +59,7 @@ module.exports = {
 		hotOnly: false,
 		proxy: {
 			"/api": {
-				target: "http://www.web-jshtml.cn/productapi", // 你请求的第三方接口
+				target: "http://www.web-jshtml.cn/productapi/token", // 你请求的第三方接口
 				changeOrigin: true, // 允许跨域
 				pathRewrite: {
 					// 路径重写，

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { Message } from "element-ui"
+import { getToken, getUsername } from "./cookie"
 
 //自定义拦截器
 //手把手官网 http://www.web-jshtml.cn/productapi
@@ -7,16 +8,18 @@ const BASEURL = process.env.NODE_ENV === "development" ? "/api" : ""
 //自定义配置新建一个 axios 实例
 var service = axios.create({
 	baseURL: BASEURL,
-	timeout: 15000 // 超时
+	timeout: 15000, // 超时
 })
 /*添加请求拦截器*/
 service.interceptors.request.use(
-	config => {
+	(config) => {
 		// 在发送请求之前做些什么
-		config.headers["AAA"] = "1111111111111111"
+		//将token添加到请求头
+		config.headers["Tokey"] = getToken()
+		config.headers["UserName"] = getUsername()
 		return config
 	},
-	error => {
+	(error) => {
 		// 对请求错误做些什么
 		return Promise.reject(error)
 	}
@@ -24,7 +27,7 @@ service.interceptors.request.use(
 
 /*添加响应------------------------拦截器*/
 service.interceptors.response.use(
-	response => {
+	(response) => {
 		// 在发送请求之前做些什么
 		const { resCode, message } = response.data
 		if (resCode !== 0) {
@@ -32,7 +35,7 @@ service.interceptors.response.use(
 		}
 		return response
 	},
-	error => {
+	(error) => {
 		// 对请求错误做些什么
 		return Promise.reject(error)
 	}
