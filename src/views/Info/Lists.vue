@@ -72,13 +72,13 @@
     <el-table-column
       prop="title"
       label="标题"
-      width="400" >
+      width="340" >
     </el-table-column>
     <el-table-column
       prop="categoryId"
       :formatter="toCategory"
       label="类别"
-      width="120">
+      width="100">
     </el-table-column>
     <el-table-column
       prop="createDate"
@@ -97,6 +97,7 @@
         <el-button type="danger" size="small" 
         @click="deleteItem(scope.row.id)">删除</el-button>
         <el-button type="success" size="small" @click="edit(scope.row.id)">编辑</el-button>
+        <el-button type="success" size="small" @click="edit(scope.row.id)">编辑详情</el-button>
       </template>
     </el-table-column> 
   </el-table>
@@ -121,7 +122,7 @@
 <AddDialog  ref="dialog" :categroyList="typeOptions.list" />
 <!-- 编辑 弹窗 -->
 <EditDialog  ref="dialogEdit" :editId="editId"
-:categroyList="typeOptions.list" @getListEmit="getList"/>
+:categroyList="typeOptions.list" />
  <!-- @getListEmit="getList"  -->
 </div>
 </template>
@@ -313,7 +314,10 @@ setup(props,{root,refs}){
       const findList=typeOptions.list.filter((e) => {
         return e.id===row.categoryId;
       })
-      return findList[0].category_name;
+      if(findList.length){
+        return findList[0].category_name;
+      }
+      
     }
     
   }
