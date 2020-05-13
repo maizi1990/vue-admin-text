@@ -97,7 +97,17 @@
         <el-button type="danger" size="small" 
         @click="deleteItem(scope.row.id)">删除</el-button>
         <el-button type="success" size="small" @click="edit(scope.row.id)">编辑</el-button>
-        <el-button type="success" size="small" @click="edit(scope.row.id)">编辑详情</el-button>
+        
+       
+        <router-link class="margin-left-10"
+        :to="{name:'Details',query:{id:scope.row.id,title:scope.row.title}}" 
+        > <el-button type="success" size="small" >编辑详情</el-button>
+        </router-link>
+
+        <!-- <router-link 
+        :to="{path:`/details/${scope.row.id}`}">
+          <el-button type="success" size="small" >编辑详情</el-button>
+        </router-link>  -->
       </template>
     </el-table-column> 
   </el-table>
@@ -221,6 +231,13 @@ setup(props,{root,refs}){
   /**
    * **************methods**************************
    */
+  /**
+   * 编辑详情
+   */
+  const editDetails = () => {
+    
+    console.log(1)
+  }
     /**
    * 搜索
    */
@@ -394,7 +411,7 @@ setup(props,{root,refs}){
     //reactive
     tableData,pickerOptions,typeOptions,deleteId,
     //methods
-    add,deleteItem,deleteAll,confirmDelete,handleSizeChange,handleCurrentChange,toDate,toCategory,handleSelectionChange,search,edit,
+    add,deleteItem,deleteAll,confirmDelete,handleSizeChange,handleCurrentChange,toDate,toCategory,handleSelectionChange,search,edit,editDetails,
   }
 }
 }

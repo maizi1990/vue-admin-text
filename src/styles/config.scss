@@ -4,9 +4,16 @@ $navWidthMin:64px;
 //主色调
 $mainColor:#F56C6C;
 
+//各浏览器兼容样式
 @mixin webkit ($type,$value){
   -webkit-#{$type}:$value;
   -moz-#{$type}:$value;
   -ms-#{$type}:$value;
   -o-#{$type}:$value;
+}
+//margin和padding    $i是变量
+@for $i from 1 through 110{
+  .paddding-top-#{$i}{padding-top: (1px * $i);}
+  .paddding-bottom-#{$i}{padding-bottom: (1px * $i);}
+  .margin-left-#{$i}{margin-left: (1px * $i);}
 }

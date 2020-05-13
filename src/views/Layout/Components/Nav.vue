@@ -18,32 +18,28 @@
           <span slot="title">{{item.meta.name}}</span>
         </template>
         <!-- 二级 -->
-        <el-menu-item 
-        v-for="(subItem,subIndex) in item.children" 
-        :key="subIndex" :index="subItem.path">{{subItem.meta.name}}</el-menu-item>
+        <template v-for="(subItem,subIndex) in item.children">
+          <el-menu-item 
+          v-if="!subItem.hidden"
+          :key="subIndex" :index="subItem.path">
+            {{subItem.meta.name}}
+          </el-menu-item>
+        </template>
       </el-submenu>
     </template>
     </el-menu>
-
-
-   
-   
   </div>
 </template>
 <script>
 import {ref,reactive,computed} from '@vue/composition-api';
 export default {
   setup(props,{root}){
-    
     /**
      * computed 监听数据改变
      */
     const isCollapse = computed(() => {
       return root.$store.state.app.isCollapse
     })
-
-
-
     
     /**
      * 数组、对象数据
