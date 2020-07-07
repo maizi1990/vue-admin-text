@@ -83,7 +83,8 @@ setup(props,{root,refs}){
    */
   const {categroyList,getCategory,getCategoryAll } = common();
   //获取分类信息列表--------监听 categroyList.list 的改变
-  watch(() => categroyList.list,(value) => {
+  watch(() => categroyList.list,(value,oldvalue) => {
+    console.log(value,oldvalue);
     categoryList.list = value;
   })
 
@@ -155,7 +156,7 @@ setup(props,{root,refs}){
           return e.id === editId.value;
         })
         categoryList.list[index].children.push(childrenData)
-      
+        form.secondCategroyName=""
         
         console.log(categoryList.list);
       }).catch((err) => {

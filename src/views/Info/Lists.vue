@@ -217,7 +217,8 @@ setup(props,{root,refs}){
    */
   const {categroyList,getCategory} = common();
   //监听 categroyList.list 的改变
-  watch(() => categroyList.list,(value) => {
+  watch(() => categroyList.list,(value,oldvalue) => {
+    //console.log(value,oldvalue);
     typeOptions.list = value;
   })
 
